@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
 class Article {
@@ -68,7 +67,6 @@ class NewsProvider with ChangeNotifier {
         'https://newsapi.org/v2/top-headlines?category=sports&apiKey=85cfd649cd55403696f63567c7e5b1c3');
     articles[4] = await extractData(
         'https://newsapi.org/v2/top-headlines?category=technology&apiKey=85cfd649cd55403696f63567c7e5b1c3');
-    print(articles);
     notifyListeners();
   }
 
@@ -80,6 +78,7 @@ class NewsProvider with ChangeNotifier {
     List<Article> list = [];
     final response = await http.get(url);
     final fetchedData = json.decode(response.body);
+    print('fetcheData: $fetchedData');
     if (fetchedData['status'] == 'ok') {
       fetchedData['articles'].forEach((e) {
         //print(e);
@@ -96,6 +95,7 @@ class NewsProvider with ChangeNotifier {
       });
     }
     notifyListeners();
+    print(articles);
     return list;
   }
 }

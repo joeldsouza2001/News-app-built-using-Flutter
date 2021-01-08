@@ -10,7 +10,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
-    var curtab = 0;
     return Scaffold(
         appBar: AppBar(
           title: Text('NewsApp'),
