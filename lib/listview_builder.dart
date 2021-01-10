@@ -25,7 +25,7 @@ class _ListviewBuilderState extends State<ListviewBuilder> {
     return SafeArea(
       child: FutureBuilder(
         future: prov.fetchdata(),
-        builder: (ctx, snap) => snap == ConnectionState.waiting
+        builder: (ctx, snap) => snap.connectionState == ConnectionState.waiting
             ? Center(child: CircularProgressIndicator())
             : prov.articles[prov.curtab].isEmpty
                 ? Center(

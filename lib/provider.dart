@@ -22,6 +22,7 @@ class Article {
 
 class NewsProvider with ChangeNotifier {
   Map<int, dynamic> articles = {0: [], 1: [], 2: [], 3: []};
+  List<Article> searchData = [];
   List<Article> topHeadlines = [];
   List<Article> businessHeadlines = [];
   List<Article> entertainmentHeadlines = [];
@@ -41,16 +42,6 @@ class NewsProvider with ChangeNotifier {
       'https://newsapi.org/v2/top-headlines?category=technology&apiKey=85cfd649cd55403696f63567c7e5b1c3';
 
   Future fetchdata() async {
-    print('enter');
-    /*final response2 = await http.get(url2);
-    final response3 = await http.get(url3);
-    final response4 = await http.get(url4);
-    final response5 = await http.get(url5);
-    final fetchedData2 = json.decode(response2.body);
-    final fetchedData3 = json.decode(response3.body);
-    final fetchedData4 = json.decode(response4.body);
-    final fetchedData5 = json.decode(response5.body);*/
-
     //0=topHeadlines
     //1=businessHeadlines
     //2=entertainmentHeadlines
@@ -74,11 +65,19 @@ class NewsProvider with ChangeNotifier {
     curtab = i;
   }
 
+  Future search(keyword) async {
+    final searchurl =
+        'https://newsapi.org/v2/top-headlines?q=$keyword&apiKey=85cfd649cd55403696f63567c7e5b1c3';
+    searchData=[];
+    searchData = await extractData(searchurl);
+    print(searchData[0].title);
+    notifyListeners();
+  }
+
   Future extractData(url) async {
     List<Article> list = [];
     final response = await http.get(url);
     final fetchedData = json.decode(response.body);
-    print('fetcheData: $fetchedData');
     if (fetchedData['status'] == 'ok') {
       fetchedData['articles'].forEach((e) {
         //print(e);
@@ -95,7 +94,6 @@ class NewsProvider with ChangeNotifier {
       });
     }
     notifyListeners();
-    print(articles);
     return list;
   }
 }
