@@ -14,12 +14,13 @@ class _SearchResultPageState extends State<SearchResultPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    
+    Provider.of<NewsProvider>(context, listen: false).searchData.clear();
   }
+
   @override
   Widget build(BuildContext context) {
     TextEditingController _searchText;
-    final prov = Provider.of<NewsProvider>(context);
+    final prov = Provider.of<NewsProvider>(context, listen: false);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(),
@@ -41,23 +42,25 @@ class _SearchResultPageState extends State<SearchResultPage> {
                   controller: _searchText,
                   onSubmitted: (keyword) async {
                     await Provider.of<NewsProvider>(context, listen: false)
-                        .search(keyword);
-                        setState(() {
-                          
-                        });
+                        .searchfunc(keyword);
+                    setState(() {});
                   },
                 ),
               ),
-               SingleChildScrollView(
-                                child: ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: prov.searchData.isEmpty
-                                      ? 0
-                                      : prov.searchData.length,
-                                  itemBuilder: (ctx, index) => ArticleCard(index),
-                                ),
-               ),
-                            
+              prov.searchData.isEmpty
+                  ? Center(
+                      child: Text('Nothig to Display :-('),
+                    )
+                  : Expanded(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: prov.searchData.isEmpty
+                            ? 0
+                            : prov.searchData.length,
+                        itemBuilder: (ctx, index) =>
+                            ArticleCard('searchData', index),
+                      ),
+                    ),
             ],
           ),
         ),

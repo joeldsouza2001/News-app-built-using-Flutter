@@ -10,24 +10,38 @@ class ListviewBuilder extends StatefulWidget {
 
 class _ListviewBuilderState extends State<ListviewBuilder> {
   @override
-  /*void initState() {
-    super.initState();
-    Future.delayed(Duration.zero, () {
-      Provider.of<NewsProvider>(context, listen: false).fetchdata();
-      setState(() {});
-    });
-
-  }*/
-
-  @override
   Widget build(BuildContext context) {
     final prov = Provider.of<NewsProvider>(context, listen: false);
-    return SafeArea(
-      child: FutureBuilder(
-        future: prov.fetchdata(),
-        builder: (ctx, snap) => snap.connectionState == ConnectionState.waiting
-            ? Center(child: CircularProgressIndicator())
-            : prov.articles[prov.curtab].isEmpty
+    if (prov.articles[prov.curtab].isEmpty) {
+      return SafeArea(
+        child: FutureBuilder(
+          future: prov.fetchdata(),
+          builder: (ctx, snap) =>
+              snap.connectionState == ConnectionState.waiting
+                  ? Center(child: CircularProgressIndicator())
+                  : prov.articles[prov.curtab].isEmpty
+                      ? Center(
+                          child: Text('Could not fetch data :-('),
+                        )
+                      : Container(
+                          padding: const EdgeInsets.all(3),
+                          margin: EdgeInsets.all(2),
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: prov.articles[prov.curtab].isEmpty
+                                ? 0
+                                : prov.articles[prov.curtab].length,
+                            itemBuilder: (ctx, index) =>
+                                ArticleCard('articles', index),
+                          ),
+                        ),
+        ),
+      );
+    }
+    else{
+      return SafeArea(
+      child: 
+             prov.articles[prov.curtab].isEmpty
                 ? Center(
                     child: Text('Could not fetch data :-('),
                   )
@@ -39,10 +53,11 @@ class _ListviewBuilderState extends State<ListviewBuilder> {
                       itemCount: prov.articles[prov.curtab].isEmpty
                           ? 0
                           : prov.articles[prov.curtab].length,
-                      itemBuilder: (ctx, index) => ArticleCard(index),
+                      itemBuilder: (ctx, index) => ArticleCard('articles',index),
                     ),
                   ),
-      ),
+      
     );
+    }
   }
 }

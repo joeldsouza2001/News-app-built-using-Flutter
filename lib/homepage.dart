@@ -9,6 +9,7 @@ class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
+    bool isDark=false;
 
 class _HomePageState extends State<HomePage> {
   AppBar appBar(BuildContext context) {
@@ -18,9 +19,16 @@ class _HomePageState extends State<HomePage> {
         IconButton(
             icon: Icon(Icons.search),
             onPressed: () {
-              Navigator.push(context,
+              Navigator.push(context ,
                   MaterialPageRoute(builder: (context) => SearchResultPage()));
-            })
+            }),
+        Switch(
+            value: isDark,
+            onChanged: (state) {
+              setState(() {
+                isDark = !isDark;
+              });
+            }),
       ],
       bottom: TabBar(
         isScrollable: true,
@@ -51,14 +59,23 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: appBar(context),
-        body: TabBarView(children: [
-          ListviewBuilder(),
-          ListviewBuilder(),
-          ListviewBuilder(),
-          ListviewBuilder(),
-          ListviewBuilder(),
-        ]));
+    final ThemeData light = ThemeData(brightness: Brightness.light);
+    final ThemeData dark = ThemeData(brightness: Brightness.dark);
+    return DefaultTabController(
+      length: 5,
+      child: MaterialApp(
+          title: 'News App',
+          theme: isDark ? dark : light,
+          debugShowCheckedModeBanner: false,
+          home: Scaffold(
+              appBar: appBar(context),
+              body: TabBarView(children: [
+                ListviewBuilder(),
+                ListviewBuilder(),
+                ListviewBuilder(),
+                ListviewBuilder(),
+                ListviewBuilder(),
+              ]))),
+    );
   }
 }

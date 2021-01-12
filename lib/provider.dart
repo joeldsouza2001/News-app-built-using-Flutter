@@ -65,12 +65,14 @@ class NewsProvider with ChangeNotifier {
     curtab = i;
   }
 
-  Future search(keyword) async {
+  Future searchfunc(keyword) async {
     final searchurl =
         'https://newsapi.org/v2/top-headlines?q=$keyword&apiKey=85cfd649cd55403696f63567c7e5b1c3';
-    searchData=[];
+    searchData = [];
     searchData = await extractData(searchurl);
-    print(searchData[0].title);
+    searchData.forEach((element) {
+      print(element.title);
+    });
     notifyListeners();
   }
 
@@ -80,7 +82,6 @@ class NewsProvider with ChangeNotifier {
     final fetchedData = json.decode(response.body);
     if (fetchedData['status'] == 'ok') {
       fetchedData['articles'].forEach((e) {
-        //print(e);
         if (e['content'] != null && e['urlToImage'] != null) {
           list.add(Article(
               content: e['content'],
