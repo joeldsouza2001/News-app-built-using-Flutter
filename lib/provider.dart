@@ -29,7 +29,6 @@ class NewsProvider with ChangeNotifier {
   List<Article> techHeadlines = [];
   List<Article> sportsHeadlines = [];
   int curtab = 0;
-  List z = ['topHeadlines', 'businessHeadlines'];
   final url1 =
       'https://newsapi.org/v2/top-headlines?country=in&apiKey=85cfd649cd55403696f63567c7e5b1c3';
   final url2 =

@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:news_app/homepage.dart';
 import 'package:provider/provider.dart';
 import './provider.dart';
-import './splash_screen.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
@@ -15,7 +14,6 @@ void main() {
 class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    
-    return SplashScreen();
+    return HomePage();
   }
 }
