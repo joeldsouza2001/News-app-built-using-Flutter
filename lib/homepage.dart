@@ -71,6 +71,7 @@ class _HomePageState extends State<HomePage> {
     final ThemeData dark = ThemeData(brightness: Brightness.dark);
     return DefaultTabController(
       length: 5,
+      //
       child: MaterialApp(
           title: 'News App',
           theme: isDark ? dark : light,
