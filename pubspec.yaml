@@ -26,7 +26,6 @@ dependencies:
   provider: ^4.3.2+3
   http: ^0.12.2
   url_launcher: ^5.7.10
-  flutter_search_bar: ^2.1.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -49,8 +48,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/images/ux_big.png
+    - assets/images/logo.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

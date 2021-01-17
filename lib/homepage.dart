@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/provider.dart';
 import 'package:news_app/search_result_page.dart';
+import 'package:news_app/splash_screen.dart';
 import 'package:provider/provider.dart';
 import './listview_builder.dart';
 //import 'package:flutter_search_bar/flutter_search_bar.dart';
@@ -9,7 +10,8 @@ class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
-    bool isDark=false;
+
+bool isDark = false;
 
 class _HomePageState extends State<HomePage> {
   AppBar appBar(BuildContext context) {
@@ -19,7 +21,7 @@ class _HomePageState extends State<HomePage> {
         IconButton(
             icon: Icon(Icons.search),
             onPressed: () {
-              Navigator.push(context ,
+              Navigator.push(context,
                   MaterialPageRoute(builder: (context) => SearchResultPage()));
             }),
         Switch(
@@ -29,6 +31,12 @@ class _HomePageState extends State<HomePage> {
                 isDark = !isDark;
               });
             }),
+        IconButton(
+            icon: Icon(Icons.ac_unit),
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SplashScreen()));
+            })
       ],
       bottom: TabBar(
         isScrollable: true,
@@ -59,7 +67,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget build(BuildContext context) {
-    final ThemeData light = ThemeData(brightness: Brightness.light);
+    final ThemeData light = ThemeData(appBarTheme: AppBarTheme(color: Colors.deepPurpleAccent),primaryColor: Colors.deepPurpleAccent,brightness: Brightness.light);
     final ThemeData dark = ThemeData(brightness: Brightness.dark);
     return DefaultTabController(
       length: 5,
@@ -67,15 +75,17 @@ class _HomePageState extends State<HomePage> {
           title: 'News App',
           theme: isDark ? dark : light,
           debugShowCheckedModeBanner: false,
-          home: Scaffold(
-              appBar: appBar(context),
-              body: TabBarView(children: [
-                ListviewBuilder(),
-                ListviewBuilder(),
-                ListviewBuilder(),
-                ListviewBuilder(),
-                ListviewBuilder(),
-              ]))),
+          home: Builder(
+            builder: (context) => Scaffold(
+                appBar: appBar(context),
+                body: TabBarView(children: [
+                  ListviewBuilder(),
+                  ListviewBuilder(),
+                  ListviewBuilder(),
+                  ListviewBuilder(),
+                  ListviewBuilder(),
+                ])),
+          )),
     );
   }
 }

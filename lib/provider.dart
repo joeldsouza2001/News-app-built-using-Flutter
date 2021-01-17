@@ -80,6 +80,7 @@ class NewsProvider with ChangeNotifier {
     List<Article> list = [];
     final response = await http.get(url);
     final fetchedData = json.decode(response.body);
+    print(fetchedData);
     if (fetchedData['status'] == 'ok') {
       fetchedData['articles'].forEach((e) {
         if (e['content'] != null && e['urlToImage'] != null) {

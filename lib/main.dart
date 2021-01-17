@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import './homepage.dart';
+import 'package:flutter/services.dart';
+import 'package:news_app/homepage.dart';
 import 'package:provider/provider.dart';
 import './provider.dart';
+import './splash_screen.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
@@ -12,21 +14,8 @@ void main() {
 
 class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
-    return HomePage();
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    
+    return SplashScreen();
   }
-  /*final ThemeData light = ThemeData(brightness: Brightness.light);
-  final ThemeData dark = ThemeData(brightness: Brightness.dark);
-  bool isDark = false;
-  @override
-  Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 5,
-      child: MaterialApp(
-        title: 'News App',
-        theme: isDark?dark:light,
-        debugShowCheckedModeBanner: false,
-        home: HomePage(),
-      ),
-    );
-  }*/
 }
